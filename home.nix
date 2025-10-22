@@ -79,7 +79,7 @@ programs.direnv = {
   nix-direnv.enable = true;
 };
 
-  programs.fish = {
+ programs.fish = {
     enable = true;
     shellInit = ''
       set fish_greeting
@@ -97,9 +97,14 @@ programs.direnv = {
       cat = "bat";
       top = "btop";
     };
+    functions = {
+      nixcommit = {
+        body = ''
+          cd /etc/nixos
+          sudo git add .
+          sudo git commit -m "$argv"
+        '';
+      };
+    };
   };
 }
-
-
-
-
