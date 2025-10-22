@@ -172,7 +172,10 @@ networking.firewall = {
   # };
 
   # List services that you want to enable:
-
+  boot.plymouth.enable = true;
+  boot.initrd.systemd.enable = true;
+  boot.plymouth.theme = "bgrt";
+  boot.kernelParams = ["quiet" "splash" "i915.fastboot=1"];
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
