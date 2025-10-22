@@ -128,14 +128,7 @@
   #flatpak because uhh uhmmm errr
   services.flatpak.enable = true;
 
-  security.sudo.extraRules = [
-  {
-    users = [ "zelda" ];
-    commands = [
-      { command = "ALL"; options = [ "NOPASSWD" ]; }
-    ];
-  }
-];
+  
 
 # steam because it cant be in hm
 programs.steam = {

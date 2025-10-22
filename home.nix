@@ -91,7 +91,6 @@ programs.direnv = {
       nixin = "sudo nixos-rebuild switch";
       nixup = "sudo nixos-rebuild switch --upgrade";
       nixout = "sudo nix-collect-garbage -d";
-      flakeup = "nix flake update /etc/nixos";
       flakein = "sudo nixos-rebuild switch --flake /etc/nixos#zeldanixbtw";
       ls = "eza --icons";
       cat = "bat";
@@ -104,6 +103,16 @@ programs.direnv = {
           sudo git add .
           sudo git commit -m "$argv"
         '';
+      };
+      flakeup = {
+        body = ''
+          echo "flake updating"
+          cd /etc/nixos
+          sudo chown -R (whoami):(id -gn) .
+          nix flake update
+          sudo chown -R root:root .
+          echo "flake updated"
+          '';
       };
     };
   };
