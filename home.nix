@@ -80,6 +80,24 @@ programs.direnv = {
   nix-direnv.enable = true;
 };
 
+programs.atuin = {
+  enable = true;
+  enableFishIntegration = true;
+  settings = {
+    # optional: sync across machines (needs account at atuin.sh)
+    # sync_address = "https://api.atuin.sh";
+    # auto_sync = true;
+    
+    # or keep it local-only (default)
+    auto_sync = false;
+    
+    # some nice defaults
+    search_mode = "fuzzy";
+    filter_mode_shell_up_key_binding = "directory";
+    inline_height = 30;
+  };
+};
+
  programs.fish = {
     enable = true;
     shellInit = ''
