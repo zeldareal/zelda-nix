@@ -31,6 +31,7 @@
     btop
     pokemon-colorscripts
     vesktop
+    appimage-run
   ];
 
  
@@ -102,6 +103,7 @@ programs.direnv = {
           cd /etc/nixos
           sudo git add .
           sudo git commit -m "$argv"
+          sudo git push
         '';
       };
       flakeup = {
