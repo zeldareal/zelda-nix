@@ -6,7 +6,17 @@
   home.homeDirectory = "/home/zelda";
   home.stateVersion = "25.05";
 # welcome to the fucking zelda verse where everything is #SWAGMESSIAH x100
-
+xdg.configFile."fish/completions/bind.fish".text = ''
+  # Overriding system bind completion to avoid deprecated -k syntax warning
+  complete -c bind -f -a '(__fish_bind_complete)'
+  
+  function __fish_bind_complete
+      # Simplified completion without -k flag
+      set -l tokens (commandline -opc)
+      # Just complete with basic bind stuff
+      echo ""
+  end
+'';
 
   # Packages for your user
   home.packages = with pkgs; [
@@ -67,7 +77,7 @@
   
 programs.fzf = {
   enable = true;
-  enableFishIntegration= true;
+  enableFishIntegration = false;
 };
 
 programs.zoxide = {
@@ -82,7 +92,7 @@ programs.direnv = {
 
 programs.atuin = {
   enable = true;
-  enableFishIntegration = true;
+  enableFishIntegration = false;
   settings = {
     # optional: sync across machines (needs account at atuin.sh)
     # sync_address = "https://api.atuin.sh";
