@@ -111,11 +111,8 @@ xdg.portal = {
   flatpak
   wget
   git
-  woeusb-ng
-  ntfs3g
   wine
   kdePackages.discover
-  lxappearance
   nitrogen
   picom
   rofi
@@ -125,8 +122,7 @@ xdg.portal = {
   vcpkg
   cmake
   kdePackages.kdeconnect-kde
-  file
-  wine64
+  xwinwrap
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  
@@ -144,6 +140,11 @@ programs.steam = {
 };
 
 
+# in your configuration.nix
+nix.optimise = {
+  automatic = true;
+  dates = [ "weekly" ]; # or "03:00" for daily at 3am, etc
+};
 
 programs.fish.enable = true;
 users.users.zelda.shell = pkgs.fish;

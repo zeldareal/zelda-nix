@@ -25,7 +25,7 @@
       config.allowUnfree = true;
     };
   in {
-      nixosConfigurations."${username}nixbtw" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."kernel-linux-mckenzie" = nixpkgs.lib.nixosSystem {
 
       inherit system;
       specialArgs = { inherit inputs system username; };

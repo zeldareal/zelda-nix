@@ -6,17 +6,8 @@
   home.homeDirectory = "/home/zelda";
   home.stateVersion = "25.05";
 # welcome to the fucking zelda verse where everything is #SWAGMESSIAH x100
-xdg.configFile."fish/completions/bind.fish".text = ''
-  # Overriding system bind completion to avoid deprecated -k syntax warning
-  complete -c bind -f -a '(__fish_bind_complete)'
-  
-  function __fish_bind_complete
-      # Simplified completion without -k flag
-      set -l tokens (commandline -opc)
-      # Just complete with basic bind stuff
-      echo ""
-  end
-'';
+
+
 
   # Packages for your user
   home.packages = with pkgs; [
@@ -40,12 +31,24 @@ xdg.configFile."fish/completions/bind.fish".text = ''
     zoxide
     btop
     pokemon-colorscripts
-    vesktop
     appimage-run
     pipewire
   ];
 
- 
+
+  xdg.desktopEntries.vesktop = {
+    name = "Vesktop";
+    genericName = "Internet Messenger";
+    exec = "vesktop %U";
+    icon = "vesktop";
+    categories = [ "Network" "InstantMessaging" "Chat" ];
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "Vesktop";
+      Keywords = "discord;vencord;electron;chat";
+    };
+  };
+
 
   #config file symlinks below *tumbleweed rolling*
 
@@ -75,10 +78,12 @@ xdg.configFile."fish/completions/bind.fish".text = ''
     
   ];
 };
-  
+  programs.vesktop = {
+    enable = true;
+  };
 programs.fzf = {
   enable = true;
-  enableFishIntegration = false;
+  enableFishIntegration = true;
 };
 
 programs.zoxide = {
@@ -86,28 +91,9 @@ programs.zoxide = {
   enableFishIntegration = true;
 };
 
-programs.direnv = {
-  enable = true;
-  nix-direnv.enable = true;
-};
 
-programs.atuin = {
-  enable = true;
-  enableFishIntegration = false;
-  settings = {
-    # optional: sync across machines (needs account at atuin.sh)
-    # sync_address = "https://api.atuin.sh";
-    # auto_sync = true;
-    
-    # or keep it local-only (default)
-    auto_sync = false;
-    
-    # some nice defaults
-    search_mode = "fuzzy";
-    filter_mode_shell_up_key_binding = "directory";
-    inline_height = 30;
-  };
-};
+
+
 
 programs.fish = {
   enable = true;
@@ -118,15 +104,13 @@ programs.fish = {
     
   '';
 
- 
-
   shellAliases = {
     ll = "ls -l";
     la = "ls -a";
     nixin = "sudo nixos-rebuild switch";
     nixup = "sudo nixos-rebuild switch --upgrade";
-    nixout = "sudo nix-collect-garbage -d";
-    flakein = "sudo nixos-rebuild switch --flake /etc/nixos#zeldanixbtw";
+    nixout = "sudo nix-collect-garbage -d && nix-store --optimize";
+    flakein = "sudo nixos-rebuild switch --flake /etc/nixos#kernel-linux-mckenzie";
     ls = "eza --icons";
     cat = "bat";
     top = "btop";
