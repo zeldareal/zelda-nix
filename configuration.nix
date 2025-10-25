@@ -24,12 +24,16 @@
     alsa.enable = true;
     jack.enable = false;
   };
-
+xdg.portal = {
+  enable = true;
+  extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+  config.common.default = "kde";
+};
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "zeldanixbtw"; # Define your hostname.
+  networking.hostName = "kernel-linux-mckenzie"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -121,6 +125,8 @@
   vcpkg
   cmake
   kdePackages.kdeconnect-kde
+  file
+  wine64
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  

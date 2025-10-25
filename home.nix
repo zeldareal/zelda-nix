@@ -42,6 +42,7 @@ xdg.configFile."fish/completions/bind.fish".text = ''
     pokemon-colorscripts
     vesktop
     appimage-run
+    pipewire
   ];
 
  
@@ -108,42 +109,48 @@ programs.atuin = {
   };
 };
 
- programs.fish = {
-    enable = true;
-    shellInit = ''
-      set fish_greeting
-       echo "hey zelda uwu" | ${pkgs.lolcat}/bin/lolcat
-    '';
-    shellAliases = {
-      ll = "ls -l";
-      la = "ls -a";
-      nixin = "sudo nixos-rebuild switch";
-      nixup = "sudo nixos-rebuild switch --upgrade";
-      nixout = "sudo nix-collect-garbage -d";
-      flakein = "sudo nixos-rebuild switch --flake /etc/nixos#zeldanixbtw";
-      ls = "eza --icons";
-      cat = "bat";
-      top = "btop";
-    };
-    functions = {
-      nixcommit = {
-        body = ''
-          cd /etc/nixos
-          sudo git add .
-          sudo git commit -m "$argv"
-          sudo git push
-        '';
-      };
-      flakeup = {
-        body = ''
-          echo "flake updating"
-          cd /etc/nixos
-          sudo chown -R (whoami):(id -gn) .
-          nix flake update
-          sudo chown -R root:root .
-          echo "flake updated"
-          '';
-      };
-    };
+programs.fish = {
+  enable = true;
+
+  shellInit = ''
+    set fish_greeting
+      echo "hey zelda uwu" | ${pkgs.lolcat}/bin/lolcat
+    
+  '';
+
+ 
+
+  shellAliases = {
+    ll = "ls -l";
+    la = "ls -a";
+    nixin = "sudo nixos-rebuild switch";
+    nixup = "sudo nixos-rebuild switch --upgrade";
+    nixout = "sudo nix-collect-garbage -d";
+    flakein = "sudo nixos-rebuild switch --flake /etc/nixos#zeldanixbtw";
+    ls = "eza --icons";
+    cat = "bat";
+    top = "btop";
   };
+
+  functions = {
+    nixcommit = {
+      body = ''
+        cd /etc/nixos
+        sudo git add .
+        sudo git commit -m "$argv"
+        sudo git push
+      '';
+    };
+    flakeup = {
+      body = ''
+        echo "flake updating"
+        cd /etc/nixos
+        sudo chown -R (whoami):(id -gn) .
+        nix flake update
+        sudo chown -R root:root .
+        echo "flake updated"
+       '';
+     };
+   };
+ };
 }
