@@ -14,10 +14,12 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+
     };
+    textfox.url = "github:adriankarlen/textfox";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, textfox, ... }: let
     system = "x86_64-linux";
     username = "zelda";
     pkgs = import nixpkgs {
@@ -28,7 +30,7 @@
       nixosConfigurations."kernel-linux-mckenzie" = nixpkgs.lib.nixosSystem {
 
       inherit system;
-      specialArgs = { inherit inputs system username; };
+      specialArgs = { inherit inputs system username textfox; };
       modules = [
         ./configuration.nix
 
@@ -39,6 +41,7 @@
             useUserPackages = true;
             users.${username} = import ./home.nix;
             backupFileExtension = "backup";
+            extraSpecialArgs = { inherit textfox; };
           };
         }
 

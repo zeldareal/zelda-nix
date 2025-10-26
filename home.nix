@@ -33,21 +33,13 @@
     pokemon-colorscripts
     appimage-run
     pipewire
+    chromium
+    gnumake
+    gcc
   ];
 
 
-  xdg.desktopEntries.vesktop = {
-    name = "Vesktop";
-    genericName = "Internet Messenger";
-    exec = "vesktop %U";
-    icon = "vesktop";
-    categories = [ "Network" "InstantMessaging" "Chat" ];
-    startupNotify = true;
-    settings = {
-      StartupWMClass = "Vesktop";
-      Keywords = "discord;vencord;electron;chat";
-    };
-  };
+  
 
 
   #config file symlinks below *tumbleweed rolling*
@@ -70,7 +62,7 @@
   enableFishIntegration = true;
   settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
 };
-#nvim (broken lazyvim, pls fix zelda)
+#nvim 
   programs.neovim = {
   enable = true;
   plugins = with pkgs.vimPlugins; [
@@ -78,21 +70,25 @@
     
   ];
 };
+#vencord but discord uhmmmmmmm
   programs.vesktop = {
     enable = true;
   };
+#fzf
 programs.fzf = {
   enable = true;
   enableFishIntegration = true;
 };
-
+#z nix z nix z nix
 programs.zoxide = {
   enable = true;
   enableFishIntegration = true;
 };
 
-
-
+#firefox
+programs.firefox = {
+  enable = true;
+};
 
 
 programs.fish = {
@@ -103,18 +99,24 @@ programs.fish = {
       echo "hey zelda uwu" | ${pkgs.lolcat}/bin/lolcat
     
   '';
-
-  shellAliases = {
-    ll = "ls -l";
-    la = "ls -a";
-    nixin = "sudo nixos-rebuild switch";
-    nixup = "sudo nixos-rebuild switch --upgrade";
-    nixout = "sudo nix-collect-garbage -d && nix-store --optimize";
-    flakein = "sudo nixos-rebuild switch --flake /etc/nixos#kernel-linux-mckenzie";
-    ls = "eza --icons";
-    cat = "bat";
-    top = "btop";
-  };
+shellAliases = {
+  ll = "eza -l --icons --git --group-directories-first";
+  la = "eza -la --icons --git";
+  lt = "eza -T --icons";
+  nixin = "sudo nixos-rebuild switch";
+  nixup = "sudo nixos-rebuild switch --upgrade";
+  nixout = "sudo nix-collect-garbage -d && nix-store --optimize";
+  flakein = "sudo nixos-rebuild switch --flake /etc/nixos#kernel-linux-mckenzie";
+  ls = "eza --icons";
+  cat = "bat";
+  top = "btop";
+  grep = "rg";
+  find = "fd";
+  tree = "eza -T --icons";
+  lsg = "eza -la --icons --git --group-directories-first";  # the max eye candy one
+};
+  
+  
 
   functions = {
     nixcommit = {
