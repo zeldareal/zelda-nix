@@ -60,7 +60,7 @@
   programs.starship = {
   enable = true;
   enableFishIntegration = true;
-  #settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
+  settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
 };
 #nvim 
   programs.neovim = {
