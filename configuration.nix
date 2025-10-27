@@ -94,6 +94,7 @@ xdg.portal = {
   users.users.zelda = {
     isNormalUser = true;
     description = "zeldareal";
+    uid = 1000;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
