@@ -127,6 +127,7 @@ xdg.portal = {
   cmake
   kdePackages.kdeconnect-kde
   xwinwrap
+  unrar
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  
