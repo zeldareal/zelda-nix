@@ -66,10 +66,22 @@ xdg.portal = {
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  services.xserver = {
+  enable = true;
+  displayManager.lightdm = {
+    enable = true;
+    greeters.slick = {
+      enable = true;
+      theme.name = "mint-y"; # mint's theme
+      iconTheme.name = "mint-y";
+     
+    };
+  };
+};
+services.displayManager.defaultSession = "plasma";
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  #services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -128,6 +140,7 @@ xdg.portal = {
   kdePackages.kdeconnect-kde
   xwinwrap
   unrar
+  libreoffice-fresh
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  
