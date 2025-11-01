@@ -1,1 +1,1 @@
-nixOS dotfiles for me (im new to this pls no bully)
+My personal /etc/nixos folder. That's really 'bout it
