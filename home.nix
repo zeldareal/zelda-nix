@@ -1,10 +1,11 @@
-{ config, pkgs, nixvim, ... }:
+{ config, pkgs, nixvim, spicetify-nix, ... }:
 
 {
 
   imports = [
     nixvim.homeModules.default
     ./modules/nixvim
+    spicetify-nix.homeManagerModules.default
   ];
 #im sorry for writing this
   home.username = "zelda";
@@ -18,7 +19,6 @@
   home.packages = with pkgs; [
     google-chrome
     fish
-    spotify
     starship
     fastfetch
     hyfetch
@@ -68,16 +68,28 @@
   settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
 };
 
+programs.spicetify = {
+  enable = true;
+  theme = spicetify-nix.legacyPackages.${pkgs.system}.themes.text;
+  colorScheme = "TokyoNightStorm";
+
+  enabledExtensions = with spicetify-nix.legacyPackages.${pkgs.system}.extensions; [
+    adblock
+    shuffle
+  ];
+};
 
 #vencord but discord uhmmmmmmm
   programs.vesktop = {
     enable = true;
   };
+
 #fzf
 programs.fzf = {
   enable = true;
   enableFishIntegration = true;
 };
+
 #z nix z nix z nix
 programs.zoxide = {
   enable = true;

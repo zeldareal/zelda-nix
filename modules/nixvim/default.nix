@@ -37,7 +37,7 @@
         settings = {
           snippet.expand = ''
             function(args)
-              require('luasnip').lsp_expand(args.body)
+              require('luasnip').lsp_expand(args.body) 
             end
           '';
           sources = [
@@ -79,7 +79,7 @@
           position = "left";
         };
       };
-    }; 
+      }; 
 
       telescope = {
         enable = true;
@@ -181,6 +181,24 @@
       # === UTIL ===
       persistence.enable = true;
     };
+
+    extraConfigLua = ''
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
+      
+      dashboard.section.header.val = {
+        "                                                     ",
+        "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
+        "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
+        "    ███╔╝ █████╗  ██║     ██║  ██║███████║██║   ██║██║██╔████╔██║ ",
+        "   ███╔╝  ██╔══╝  ██║     ██║  ██║██╔══██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+        "  ███████╗███████╗███████╗██████╔╝██║  ██║ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+        "  ╚══════╝╚══════╝╚══════╝╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+        "                                                     ",
+      }
+      
+      alpha.setup(dashboard.opts)
+    '';
 
     extraPackages = with pkgs; [
       stylua

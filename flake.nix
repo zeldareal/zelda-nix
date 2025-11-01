@@ -16,15 +16,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
 
     };
+
+
     textfox.url = "github:adriankarlen/textfox";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
+
     nixvim = {
   url= "github:nix-community/nixvim";
   inputs.nixpkgs.follows = "nixpkgs";
 };
-  };
+  };   
 
 
-  outputs = inputs@{ self, nixpkgs, home-manager, textfox, nixvim, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, textfox, nixvim, spicetify-nix, ... }: let
     system = "x86_64-linux";
     username = "zelda";
     pkgs = import nixpkgs {
@@ -46,7 +51,7 @@
             useUserPackages = true;
             users.${username} = import ./home.nix;
             backupFileExtension = "backup";
-            extraSpecialArgs = { inherit textfox nixvim; };
+            extraSpecialArgs = { inherit textfox nixvim spicetify-nix; };
           };
         }
 
