@@ -1,13 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixvim, ... }:
 
 {
+
+  imports = [
+    nixvim.homeModules.default
+    ./modules/nixvim
+  ];
 #im sorry for writing this
   home.username = "zelda";
   home.homeDirectory = "/home/zelda";
   home.stateVersion = "25.05";
 # welcome to the fucking zelda verse where everything is #SWAGMESSIAH x100
 
-
+ 
 
   # Packages for your user
   home.packages = with pkgs; [
@@ -62,14 +67,8 @@
   enableFishIntegration = true;
   settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
 };
-#nvim 
-  programs.neovim = {
-  enable = true;
-  plugins = with pkgs.vimPlugins; [
-    nvim-treesitter.withAllGrammars
-    
-  ];
-};
+
+
 #vencord but discord uhmmmmmmm
   programs.vesktop = {
     enable = true;

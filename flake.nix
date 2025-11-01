@@ -17,9 +17,14 @@
 
     };
     textfox.url = "github:adriankarlen/textfox";
+    nixvim = {
+  url= "github:nix-community/nixvim";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, textfox, ... }: let
+
+  outputs = inputs@{ self, nixpkgs, home-manager, textfox, nixvim, ... }: let
     system = "x86_64-linux";
     username = "zelda";
     pkgs = import nixpkgs {
@@ -30,7 +35,7 @@
       nixosConfigurations."kernel-linux-mckenzie" = nixpkgs.lib.nixosSystem {
 
       inherit system;
-      specialArgs = { inherit inputs system username textfox; };
+      specialArgs = { inherit inputs system username textfox nixvim; };
       modules = [
         ./configuration.nix
 
@@ -41,7 +46,7 @@
             useUserPackages = true;
             users.${username} = import ./home.nix;
             backupFileExtension = "backup";
-            extraSpecialArgs = { inherit textfox; };
+            extraSpecialArgs = { inherit textfox nixvim; };
           };
         }
 
@@ -49,13 +54,7 @@
       ];
     };
 
-    # optional overlay space (e.g. custom pkgs)
-    overlays = [
-      (final: prev: {
-        # example: neovim-nightly = prev.neovim-unwrapped.override { };
-      })
-    ];
-
+    
     # optional dev shell (great for working with Nix)
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = with pkgs; [
