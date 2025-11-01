@@ -47,7 +47,7 @@
   
 
 
-  #config file symlinks below *tumbleweed rolling*
+  # ==PROGRAM CONFIGS== #
 
  
   
@@ -67,6 +67,9 @@
   enableFishIntegration = true;
   settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
 };
+
+# ==SPICETIFY== #
+
 
 programs.spicetify = {
   enable = true;
