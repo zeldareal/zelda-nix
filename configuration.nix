@@ -1,11 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
 # apologies in advance.
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-
+      inputs.nixvim.nixosModules.nixvim
+      ./modules/nixvim/default.nix
     ];
 
     nixpkgs.config.allowUnfree = true;

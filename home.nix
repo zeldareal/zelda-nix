@@ -73,10 +73,10 @@
 
 programs.spicetify = {
   enable = true;
-  theme = spicetify-nix.legacyPackages.${pkgs.system}.themes.text;
+  theme = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.text;
   colorScheme = "TokyoNightStorm";
 
-  enabledExtensions = with spicetify-nix.legacyPackages.${pkgs.system}.extensions; [
+  enabledExtensions = with spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.extensions; [
     adblock
     shuffle
   ];
@@ -86,6 +86,8 @@ programs.spicetify = {
   programs.vesktop = {
     enable = true;
   };
+
+
 
 #fzf
 programs.fzf = {
@@ -128,6 +130,7 @@ shellAliases = {
   find = "fd";
   tree = "eza -T --icons";
   lsg = "eza -la --icons --git --group-directories-first";  # the max eye candy one
+  svim = "sudoedit";
 };
   
   
