@@ -130,7 +130,6 @@ shellAliases = {
   find = "fd";
   tree = "eza -T --icons";
   lsg = "eza -la --icons --git --group-directories-first";  # the max eye candy one
-  svim = "sudoedit";
 };
   
   
@@ -153,6 +152,17 @@ shellAliases = {
         sudo chown -R root:root .
         echo "flake updated"
        '';
+     };
+     
+     svim = { 
+      body = ''
+        if test (count $argv) -eq 0 
+           sudo -E nvim
+         else
+           sudo -E nvim $argv
+        end  
+        
+      '';
      };
    };
  };

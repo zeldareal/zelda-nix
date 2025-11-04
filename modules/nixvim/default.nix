@@ -26,7 +26,7 @@
 
     colorschemes.tokyonight = {
       enable = true;
-      settings.style = "night";
+      settings.style = "storm";
     };
 
     plugins = {
@@ -84,15 +84,29 @@
       telescope = {
         enable = true;
         extensions = {
-          fzf-native.enable = true;
-        };
-        keymaps = {
-          "<leader>ff" = "find_files";
-          "<leader>fg" = "live_grep";
-          "<leader>fb" = "buffers";
-          "<leader>fh" = "help_tags";
-        };
-      };
+         fzf-native.enable = true;
+  };
+  keymaps = {
+    "<leader>ff" = "find_files";
+    "<leader>fg" = "live_grep";
+    "<leader>fb" = "buffers";
+    "<leader>fh" = "help_tags";
+  };
+  settings = {
+    defaults = {
+      vimgrep_arguments = [
+        "sudo"
+        "rg"
+        "--color=never"
+        "--no-heading"
+        "--with-filename"
+        "--line-number"
+        "--column"
+        "--smart-case"
+      ];
+    };
+  };
+};
 
       gitsigns = {
         enable = true;
@@ -107,7 +121,7 @@
 
       which-key = {
         enable = true;
-        settings.delay = 300;
+        settings.delay = 100;
       };
 
       trouble.enable = true;
@@ -202,7 +216,7 @@
 
     extraPackages = with pkgs; [
       stylua
-      nixfmt-classic
+      nixfmt-rfc-style
       lua-language-server
       nixd
       ripgrep

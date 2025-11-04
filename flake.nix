@@ -35,6 +35,7 @@
         modules = [
           { nixpkgs.config.allowUnfree = true; }
           ./configuration.nix
+         { boot.kernelPackages = inputs.nixpkgs.legacyPackages.x86_64-linux.linuxPackages_zen; }
 
           home-manager.nixosModules.home-manager
           {
