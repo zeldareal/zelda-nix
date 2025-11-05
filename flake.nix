@@ -18,7 +18,7 @@
 
     textfox.url = "github:adriankarlen/textfox";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    nixcord.url = "github:kaylorben/nixcord";
+  
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -49,9 +49,6 @@
               backupFileExtension = "backup";
               extraSpecialArgs = { inherit textfox nixvim spicetify-nix; };
             };
-                home-manager.sharedModules = [
-                  inputs.nixcord.homeModules.nixcord
-             ];
           }
         ];
       };

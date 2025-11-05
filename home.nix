@@ -26,7 +26,6 @@
     fzf
     prismlauncher
     onefetch
-    discord
     lolcat
     mpv
     eza
@@ -41,6 +40,7 @@
     chromium
     gnumake
     gcc
+    legcord 
   ];
 
 
@@ -83,10 +83,9 @@ programs.spicetify = {
 };
 
 #vencord but discord uhmmmmmmm
-  programs.vesktop = {
-    enable = true;
+  programs.vesktop = { 
+  enable = true;
   };
-
 
 
 #fzf
@@ -130,6 +129,9 @@ shellAliases = {
   find = "fd";
   tree = "eza -T --icons";
   lsg = "eza -la --icons --git --group-directories-first";  # the max eye candy one
+  him = "sudo -E nvim /etc/nixos/home.nix";
+  fim = "sudo -E nvim /etc/nixos/flake.nix";
+  cim = "sudo -E nvim /etc/nixos/configuration.nix";
 };
   
   

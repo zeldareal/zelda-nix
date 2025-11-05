@@ -130,6 +130,8 @@ xdg.portal = {
   xwinwrap
   unrar
   libreoffice-fresh
+  nh
+  lazygit
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  

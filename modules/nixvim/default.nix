@@ -221,6 +221,7 @@
       nixd
       ripgrep
       fd
+      lazygit
     ];
 
     keymaps = [
@@ -235,6 +236,12 @@
         key = "<leader>xx";
         action = "<cmd>Trouble diagnostics toggle<cr>";
         options.desc = "Toggle diagnostics";
+      }
+      {
+        mode = "n";
+        key = "<leader>lg";
+        action = "<cmd>LazyGit<cr>";
+        options.desc = "Open Lazygit";
       }
     ];
   };
