@@ -129,9 +129,6 @@ shellAliases = {
   find = "fd";
   tree = "eza -T --icons";
   lsg = "eza -la --icons --git --group-directories-first";  # the max eye candy one
-  him = "sudo -E nvim /etc/nixos/home.nix";
-  fim = "sudo -E nvim /etc/nixos/flake.nix";
-  cim = "sudo -E nvim /etc/nixos/configuration.nix";
 };
   
   
@@ -158,14 +155,35 @@ shellAliases = {
      
      svim = { 
       body = ''
+          set old_dir (pwd)
+          cd /etc/nixos 
+          
         if test (count $argv) -eq 0 
            sudo -E nvim
          else
            sudo -E nvim $argv
-        end  
+        end 
+        cd $old_dir
         
       '';
      };
+
+      him = {
+        body = ''
+         svim /etc/nixos/home.nix
+        
+      '';
+      };
+     fim = {
+        body = ''
+          svim /etc/nixos/flake.nix
+       '';
+      };
+      cim = {
+        body = ''
+          svim /etc/nixos/flake.nix
+        '';
+      };
    };
  };
 }

@@ -79,7 +79,19 @@
           position = "left";
         };
       };
-      }; 
+      };
+      toggleterm = {
+        enable = true;
+        settings = {
+          direction = "float";
+          float_opts = {
+          border = "curved";
+          width = 120;
+          height = 30;
+        };
+          open_mapping = "[[<C-\\>]]";
+        };
+      };
 
       telescope = {
         enable = true;
@@ -91,11 +103,14 @@
     "<leader>fg" = "live_grep";
     "<leader>fb" = "buffers";
     "<leader>fh" = "help_tags";
+    "<leader>/" = {
+            action = "current_buffer_fuzzy_find";
+            options.desc = "Search in current buffer";
+          };
   };
   settings = {
     defaults = {
       vimgrep_arguments = [
-        "sudo"
         "rg"
         "--color=never"
         "--no-heading"
@@ -199,7 +214,7 @@
     extraConfigLua = ''
       local alpha = require('alpha')
       local dashboard = require('alpha.themes.dashboard')
-      
+           
       dashboard.section.header.val = {
         "                                                     ",
         "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
@@ -212,7 +227,27 @@
       }
       
       alpha.setup(dashboard.opts)
-    '';
+
+       local Terminal = require('toggleterm.terminal').Terminal
+  local lazygit = Terminal:new({
+    cmd = "lazygit",
+    direction = "float",
+    hidden = true,
+    float_opts = {
+      border = "curved",
+    },
+    on_open = function(term)
+      vim.cmd("startinsert!")
+    end,
+  })
+
+  function _lazygit_toggle()
+    lazygit:toggle()
+  end
+
+  vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+'';
+    
 
     extraPackages = with pkgs; [
       stylua
@@ -236,12 +271,6 @@
         key = "<leader>xx";
         action = "<cmd>Trouble diagnostics toggle<cr>";
         options.desc = "Toggle diagnostics";
-      }
-      {
-        mode = "n";
-        key = "<leader>lg";
-        action = "<cmd>LazyGit<cr>";
-        options.desc = "Open Lazygit";
       }
     ];
   };

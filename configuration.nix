@@ -86,7 +86,7 @@ xdg.portal = {
 
   security.rtkit.enable = true;
 
-
+environment.variables.NH_FLAKE = "/etc/nixos";
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -103,15 +103,8 @@ xdg.portal = {
     ];
   };
 
-  # Install firefox.
-
-
-  # Allow unfree packages
-
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  
+    environment.systemPackages = with pkgs; [
   bluez-tools
   flatpak
   wget
@@ -149,16 +142,9 @@ programs.steam = {
 };
 
 
-# in your configuration.nix
-nix.optimise = {
-  automatic = true;
-  dates = [ "weekly" ]; # or "03:00" for daily at 3am, etc
-};
-
 programs.fish.enable = true;
 users.users.zelda.shell = pkgs.fish;
-users.users.root.shell = pkgs.fish;  # if root shell is also fish, add this too
-
+users.users.root.shell = pkgs.fish;
 
    users.defaultUserShell = pkgs.fish;
    
