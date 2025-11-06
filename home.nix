@@ -40,7 +40,8 @@
     chromium
     gnumake
     gcc
-    legcord 
+    legcord
+    sl
   ];
 
 
