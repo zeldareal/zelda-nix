@@ -118,10 +118,6 @@ shellAliases = {
   ll = "eza -l --icons --git --group-directories-first";
   la = "eza -la --icons --git";
   lt = "eza -T --icons";
-  nixin = "sudo nixos-rebuild switch";
-  nixup = "sudo nixos-rebuild switch --upgrade";
-  nixout = "sudo nix-collect-garbage -d && nix-store --optimize";
-  flakein = "sudo nixos-rebuild switch --flake /etc/nixos#kernel-linux-mckenzie";
   ls = "eza --icons";
   cat = "bat";
   top = "btop";
@@ -137,51 +133,37 @@ shellAliases = {
     nixcommit = {
       body = ''
         cd /etc/nixos
-        sudo git add .
-        sudo git commit -m "$argv"
-        sudo git push
+        git add .
+        git commit -m "$argv"
+        git push
       '';
     };
-    flakeup = {
-      body = ''
-        echo "flake updating"
-        cd /etc/nixos
-        sudo chown -R (whoami):(id -gn) .
-        nix flake update
-        sudo chown -R root:root .
-        echo "flake updated"
-       '';
-     };
-     
-     svim = { 
-      body = ''
-          set old_dir (pwd)
-          cd /etc/nixos 
-          
-        if test (count $argv) -eq 0 
-           sudo -E nvim
-         else
-           sudo -E nvim $argv
-        end 
-        cd $old_dir
         
+     nvim = { 
+      body = ''
+        set old_dir (pwd)
+        cd /etc/nixos
+        command nvim $argv
+        z $old_dir
+          
+               
       '';
      };
 
       him = {
         body = ''
-         svim /etc/nixos/home.nix
+         nvim /etc/nixos/home.nix
         
       '';
       };
      fim = {
         body = ''
-          svim /etc/nixos/flake.nix
+          nvim /etc/nixos/flake.nix
        '';
       };
       cim = {
         body = ''
-          svim /etc/nixos/flake.nix
+          nvim /etc/nixos/configuration.nix        
         '';
       };
    };
