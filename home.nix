@@ -42,6 +42,8 @@
     gcc
     legcord
     sl
+    fuzzel
+   
   ];
 
 
@@ -106,6 +108,8 @@ programs.firefox = {
   enable = true;
 };
 
+ 
+  #===FISH===
 
 programs.fish = {
   enable = true;
@@ -126,6 +130,7 @@ shellAliases = {
   find = "fd";
   tree = "eza -T --icons";
   lsg = "eza -la --icons --git --group-directories-first";  # the max eye candy one
+  nhup = "nh os switch --update";
 };
   
   

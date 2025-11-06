@@ -126,6 +126,7 @@ environment.variables.NH_FLAKE = "/etc/nixos";
   nh
   lazygit
   sl
+  ghostty 
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  

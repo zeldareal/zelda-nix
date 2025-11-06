@@ -18,6 +18,8 @@
 
     textfox.url = "github:adriankarlen/textfox";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    ghostty.url = "github:ghostty-org/ghostty";
+    
   
 
     nixvim = {
@@ -28,7 +30,7 @@
     };
   };   
 
-  outputs = inputs@{ self, nixpkgs, home-manager, textfox, nixvim, spicetify-nix, ... }: 
+  outputs = inputs@{ self, nixpkgs, ghostty, home-manager, textfox, nixvim, spicetify-nix, ... }: 
     let
       username = "zelda";
     in
