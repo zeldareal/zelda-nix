@@ -125,6 +125,7 @@ environment.variables.NH_FLAKE = "/etc/nixos";
   libreoffice-fresh
   nh
   lazygit
+  sl
   ];
 #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
  
