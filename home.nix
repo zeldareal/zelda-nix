@@ -53,8 +53,7 @@
     
     # apps
     fuzzel
-    legcord
-    notion   
+    legcord 
     prismlauncher
     
     # dev tools
@@ -64,27 +63,7 @@
     # system utilities
     appimage-run
     pipewire   
-    # system monitoring
-    btop
-    
-    # media
-    mpv
-    
-    # apps
-    inputs.claude-desktop.packages.${system}.claude-desktop
-    notion-app-enhanced
-    prismlauncher
-    legcord
-    fuzzel
-      
-    # dev tools
-    gnumake
-    gcc
-    
-    # system utilities
-    pipewire
-    appimage-run  
-  ];
+];
 
 
   
