@@ -1,4 +1,4 @@
-{ config, pkgs, nixvim, spicetify-nix, ... }:
+{ config, pkgs, nixvim, spicetify-nix, inputs, ... }:
 
 {
 
@@ -19,6 +19,7 @@
   home.packages = with pkgs; [
     # browsers
     chromium
+    librewolf
     google-chrome
     
     # shell & prompt
@@ -53,7 +54,7 @@
     # apps
     fuzzel
     legcord
-    notion-app-enhanced
+    notion   
     prismlauncher
     
     # dev tools
@@ -70,11 +71,12 @@
     mpv
     
     # apps
+    inputs.claude-desktop.packages.${system}.claude-desktop
     notion-app-enhanced
     prismlauncher
     legcord
     fuzzel
-    
+      
     # dev tools
     gnumake
     gcc
