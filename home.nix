@@ -17,33 +17,71 @@
 
   # Packages for your user
   home.packages = with pkgs; [
+    # browsers
+    chromium
     google-chrome
+    
+    # shell & prompt
     fish
     starship
+    
+    # terminal
+    wezterm
+    
+    # system info and fun
     fastfetch
     hyfetch
-    wezterm
-    fzf
-    prismlauncher
-    onefetch
     lolcat
-    mpv
-    eza
-    bat 
-    ripgrep
-    fd 
-    zoxide
-    btop
+    onefetch
     pokemon-colorscripts
+    sl
+    
+    # file nav and search    
+    bat
+    eza
+    fd
+    fzf
+    ripgrep
+    zoxide
+    
+    # system monitoring
+    btop
+    
+    # media
+    mpv
+    
+    # apps
+    fuzzel
+    legcord
+    notion-app-enhanced
+    prismlauncher
+    
+    # dev tools
+    gcc
+    gnumake
+    
+    # system utilities
     appimage-run
-    pipewire
-    chromium
+    pipewire   
+    # system monitoring
+    btop
+    
+    # media
+    mpv
+    
+    # apps
+    notion-app-enhanced
+    prismlauncher
+    legcord
+    fuzzel
+    
+    # dev tools
     gnumake
     gcc
-    legcord
-    sl
-    fuzzel
-   
+    
+    # system utilities
+    pipewire
+    appimage-run  
   ];
 
 
@@ -85,10 +123,6 @@ programs.spicetify = {
   ];
 };
 
-#vencord but discord uhmmmmmmm
-  programs.vesktop = { 
-  enable = true;
-  };
 
 
 #fzf
@@ -97,7 +131,7 @@ programs.fzf = {
   enableFishIntegration = true;
 };
 
-#z nix z nix z nix
+#z 
 programs.zoxide = {
   enable = true;
   enableFishIntegration = true;
