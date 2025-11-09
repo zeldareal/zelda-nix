@@ -215,6 +215,15 @@
         servers = {
           lua_ls.enable = true;
           nixd.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
+          basedpyright.enable = true;
+          clangd.enable = true; # handles C, C++, Objective-C
+          jdtls.enable = true;
+          ts_ls.enable = true;
         };
       };
 
