@@ -346,17 +346,24 @@
         options.desc = "Open parent directory";
       }
 
+      {
+        mode = "n";
+        key = "<leader>ca";
+        action = "<cmd>lua vim.lsp.buf.code_action()<cr>";
+        options.desc = "Code actions";
+      }
+
       # Harpoon keymaps
       {
         mode = "n";
         key = "<leader>a";
-        action = "<cmd>lua require('harpoon'):list():append()<cr>";
+        action = "<cmd>lua require('harpoon'):list():add()<cr>";
         options.desc = "Harpoon add file";
       }
       {
         mode = "n";
         key = "<leader>h";
-        action = "<cmd>lua local harpoon = require('harpoon'); harpoon.ui:toggle_quick_menu(harpoon:list())<cr>";
+        action = "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>";
         options.desc = "Harpoon quick menu";
       }
       {
