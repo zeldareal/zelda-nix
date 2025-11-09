@@ -201,12 +201,22 @@
             nix = [ "nixfmt" ];
           };
         };
-      };
 
-      # === LINTING ===
-      lint = {
-        enable = true;
-        lintersByFt = { };
+        # === LINTING ===
+        lint = {
+          enable = true;
+          lintersByFt = {
+            lua = [ "luacheck" ];
+            nix = [ "nix" ];
+            python = [ "ruff" ];
+            rust = [ ];
+            c = [ "cppcheck" ];
+            cpp = [ "cppcheck" ];
+            java = [ "checkstyle" ];
+            javascript = [ "eslint" ];
+            typescript = [ "eslint" ];
+          };
+        };
       };
 
       # === LSP ===
@@ -311,7 +321,12 @@
       ripgrep
       fd
       lazygit
-
+      luacheck
+      nix
+      ruff
+      cppcheck
+      checkstyle
+      nodePackages.eslint # for js/ts
     ];
 
     keymaps = [
