@@ -31,7 +31,6 @@
     };
 
     plugins = {
-      # === CODING ===
       cmp = {
         enable = true;
         autoEnableSources = true;
@@ -70,7 +69,6 @@
         };
       };
 
-      # === EDITOR ===
       neo-tree = {
         enable = true;
         settings = {
@@ -185,10 +183,6 @@
         };
       };
 
-      trouble.enable = true;
-      flash.enable = true;
-
-      # === FORMATTING ===
       conform-nvim = {
         enable = true;
         settings = {
@@ -203,67 +197,40 @@
         };
       };
 
-      # === LINTING ===
       lint = {
         enable = true;
-        lintersByFt = {
-          lua = [ "luacheck" ];
-          nix = [ "nix" ];
-          python = [ "ruff" ];
-          rust = [ ];
-          c = [ "cppcheck" ];
-          cpp = [ "cppcheck" ];
-          java = [ "checkstyle" ];
-          javascript = [ "eslint" ];
-          typescript = [ "eslint" ];
-        };
+        lintersByFt = { };
       };
 
-      # === LSP ===
       lsp = {
         enable = true;
         servers = {
           lua_ls.enable = true;
           nixd.enable = true;
-          # rust_analyzer = {
-          # enable = true;
-          # installCargo = false;
-          # installRustc = false;
-          # };
-          # basedpyright.enable = true;
-          # clangd.enable = true; # handles C, C++, Objective-C
-          # jdtls.enable = true;
-          # ts_ls.enable = true;
         };
       };
 
-      # === TREESITTER ===
       treesitter = {
         enable = true;
         nixGrammars = true;
-
         settings = {
           highlight.enable = true;
           indent.enable = true;
         };
       };
 
-      # === UI ===
       lualine = {
         enable = true;
-
         settings.options.theme = "auto";
       };
 
       bufferline = {
         enable = true;
-
         settings.options.diagnostics = "nvim_lsp";
       };
 
       indent-blankline = {
         enable = true;
-
         settings.scope.enabled = true;
       };
 
@@ -276,53 +243,51 @@
       noice.enable = true;
       notify.enable = true;
 
-      # === UTIL ===
       persistence.enable = true;
     };
 
     extraConfigLua = ''
-                          local alpha = require('alpha')
-                          local dashboard = require('alpha.themes.dashboard')
-                         
-                          dashboard.section.header.val = {
-                  "                                                     ",
-                  "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
-                  "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
-                  "    ███╔╝ █████╗  ██║     ██║  ██║███████║██║   ██║██║██╔████╔██║ ",
-                  "   ███╔╝  ██╔══╝  ██║     ██║  ██║██╔══██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-                  "  ███████╗███████╗███████╗██████╔╝██║  ██║ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-                  "  ╚══════╝╚══════╝╚══════╝╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-                  "                                                     ",
-                  "                 // yet another nvim config //          ",
-                }         
-                          alpha.setup(dashboard.opts)
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
 
-                           vim.api.nvim_create_autocmd("VeryLazy", {
+      dashboard.section.header.val = {
+        "                                                     ",
+        "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
+        "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
+        "    ███╔╝ █████╗  ██║     ██║  ██║███████║██║   ██║██║██╔████╔██║ ",
+        "   ███╔╝  ██╔══╝  ██║     ██║  ██║██╔══██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+        "  ███████╗███████╗███████╗██████╔╝██║  ██║ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+        "  ╚══════╝╚══════╝╚══════╝╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+        "                                                     ",
+        "                 // yet another nvim config //          ",
+      }
+
+      alpha.setup(dashboard.opts)
+
+      local Terminal = require('toggleterm.terminal').Terminal
+      local lazygit = Terminal:new({
+        cmd = "lazygit",
+        direction = "float",
+        hidden = true,
+        float_opts = { border = "curved" },
+        on_open = function(term)
+          vim.cmd("startinsert!")
+        end,
+      })
+
+      function _lazygit_toggle()
+        lazygit:toggle()
+      end
+
+      vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "VeryLazy",
         callback = function()
-          local Terminal = require('toggleterm.terminal').Terminal
-          local lazygit = Terminal:new({
-            cmd = "lazygit",
-            direction = "float",
-            hidden = true,
-            float_opts = {
-              border = "curved",
-            },
-            on_open = function(term)
-              vim.cmd("startinsert!")
-              vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
-            end,
-            on_close = function(term)
-              vim.cmd("startinsert!")
-            end,
-          })
-
-          function _lazygit_toggle()
-            lazygit:toggle()
-          end
-
-          vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+          -- any plugin-dependent code here
         end
-      })   '';
+      })
+    '';
 
     extraPackages = with pkgs; [
       stylua
@@ -332,12 +297,6 @@
       ripgrep
       fd
       lazygit
-      lua54Packages.luacheck
-      nix
-      ruff
-      cppcheck
-      checkstyle
-      nodePackages.eslint # for js/ts
     ];
 
     keymaps = [
@@ -353,25 +312,16 @@
         action = "<cmd>Oil<cr>";
         options.desc = "Open parent directory";
       }
-
-      {
-        mode = "n";
-        key = "<leader>ca";
-        action = "<cmd>lua vim.lsp.buf.code_action()<cr>";
-        options.desc = "Code actions";
-      }
-
-      # Harpoon keymaps
       {
         mode = "n";
         key = "<leader>a";
-        action = "<cmd>lua require('harpoon'):list():add()<cr>";
+        action = "<cmd>lua require('harpoon'):list():append()<cr>";
         options.desc = "Harpoon add file";
       }
       {
         mode = "n";
         key = "<leader>h";
-        action = "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>";
+        action = "<cmd>lua local harpoon = require('harpoon'); harpoon.ui:toggle_quick_menu(harpoon:list())<cr>";
         options.desc = "Harpoon quick menu";
       }
       {
@@ -401,4 +351,3 @@
     ];
   };
 }
-#or something
