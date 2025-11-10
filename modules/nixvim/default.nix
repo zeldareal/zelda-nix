@@ -225,15 +225,15 @@
         servers = {
           lua_ls.enable = true;
           nixd.enable = true;
-          rust_analyzer = {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-          };
-          basedpyright.enable = true;
-          clangd.enable = true; # handles C, C++, Objective-C
-          jdtls.enable = true;
-          ts_ls.enable = true;
+          # rust_analyzer = {
+          # enable = true;
+          # installCargo = false;
+          # installRustc = false;
+          # };
+          # basedpyright.enable = true;
+          # clangd.enable = true; # handles C, C++, Objective-C
+          # jdtls.enable = true;
+          # ts_ls.enable = true;
         };
       };
 
@@ -241,6 +241,7 @@
       treesitter = {
         enable = true;
         nixGrammars = true;
+
         settings = {
           highlight.enable = true;
           indent.enable = true;
@@ -250,16 +251,19 @@
       # === UI ===
       lualine = {
         enable = true;
+
         settings.options.theme = "auto";
       };
 
       bufferline = {
         enable = true;
+
         settings.options.diagnostics = "nvim_lsp";
       };
 
       indent-blankline = {
         enable = true;
+
         settings.scope.enabled = true;
       };
 
@@ -277,44 +281,48 @@
     };
 
     extraConfigLua = ''
-                      local alpha = require('alpha')
-                      local dashboard = require('alpha.themes.dashboard')
-                     
-                      dashboard.section.header.val = {
-              "                                                     ",
-              "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
-              "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
-              "    ███╔╝ █████╗  ██║     ██║  ██║███████║██║   ██║██║██╔████╔██║ ",
-              "   ███╔╝  ██╔══╝  ██║     ██║  ██║██╔══██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-              "  ███████╗███████╗███████╗██████╔╝██║  ██║ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-              "  ╚══════╝╚══════╝╚══════╝╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-              "                                                     ",
-              "                 // yet another nvim config //          ",
-            }         
-                      alpha.setup(dashboard.opts)
+                          local alpha = require('alpha')
+                          local dashboard = require('alpha.themes.dashboard')
+                         
+                          dashboard.section.header.val = {
+                  "                                                     ",
+                  "  ███████╗███████╗██╗     ██████╗  █████╗ ██╗   ██╗██╗███╗   ███╗ ",
+                  "  ╚══███╔╝██╔════╝██║     ██╔══██╗██╔══██╗██║   ██║██║████╗ ████║ ",
+                  "    ███╔╝ █████╗  ██║     ██║  ██║███████║██║   ██║██║██╔████╔██║ ",
+                  "   ███╔╝  ██╔══╝  ██║     ██║  ██║██╔══██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+                  "  ███████╗███████╗███████╗██████╔╝██║  ██║ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+                  "  ╚══════╝╚══════╝╚══════╝╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+                  "                                                     ",
+                  "                 // yet another nvim config //          ",
+                }         
+                          alpha.setup(dashboard.opts)
 
-                       local Terminal = require('toggleterm.terminal').Terminal
-                  local lazygit = Terminal:new({
-                    cmd = "lazygit",
-                    direction = "float",
-                    hidden = true,
-                    float_opts = {
-                      border = "curved",
-                    },
-                    on_open = function(term)
-        vim.cmd("startinsert!")
-        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
-      end,
-      on_close = function(term)
-        vim.cmd("startinsert!")
-      end,           })
+                           vim.api.nvim_create_autocmd("VeryLazy", {
+        callback = function()
+          local Terminal = require('toggleterm.terminal').Terminal
+          local lazygit = Terminal:new({
+            cmd = "lazygit",
+            direction = "float",
+            hidden = true,
+            float_opts = {
+              border = "curved",
+            },
+            on_open = function(term)
+              vim.cmd("startinsert!")
+              vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+            end,
+            on_close = function(term)
+              vim.cmd("startinsert!")
+            end,
+          })
 
-                  function _lazygit_toggle()
-                    lazygit:toggle()
-                  end
+          function _lazygit_toggle()
+            lazygit:toggle()
+          end
 
-                  vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
-    '';
+          vim.keymap.set("n", "<leader>lg", _lazygit_toggle, { desc = "Lazygit" })
+        end
+      })   '';
 
     extraPackages = with pkgs; [
       stylua
