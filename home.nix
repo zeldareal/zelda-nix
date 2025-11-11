@@ -3,10 +3,8 @@
   pkgs,
   nixvim,
   spicetify-nix,
-  inputs,
   ...
 }:
-
 {
 
   imports = [
@@ -19,30 +17,25 @@
   home.homeDirectory = "/home/zelda";
   home.stateVersion = "25.05";
   # welcome to the fucking zelda verse where everything is #SWAGMESSIAH x100
-
   # Packages for your user
   home.packages = with pkgs; [
-    # browsers
+
     chromium
     librewolf
     google-chrome
 
-    # shell & prompt
     fish
     starship
-
     # terminal
     wezterm
 
-    # system info and fun
     fastfetch
     hyfetch
     lolcat
     onefetch
     pokemon-colorscripts
     sl
-
-    # file nav and search
+    onefetch
     bat
     eza
     fd
@@ -50,34 +43,25 @@
     ripgrep
     zoxide
 
-    # system monitoring
     btop
 
-    # media
     mpv
 
-    # apps
     fuzzel
     notion-app-enhanced
     legcord
     prismlauncher
 
-    # dev tools
     gcc
     gnumake
 
-    # system utilities
     appimage-run
     pipewire
-
+    nushell
   ];
 
   # ==PROGRAM CONFIGS== #
-
-  # add basic programs enable thingies below
   programs.wezterm.enable = true;
-  #the bigger ones (without .enable) go here
-
   #starship
   programs.starship = {
     enable = true;
@@ -86,12 +70,10 @@
   };
 
   # ==SPICETIFY== #
-
   programs.spicetify = {
     enable = true;
     theme = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.text;
     colorScheme = "TokyoNightStorm";
-
     enabledExtensions =
       with spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.extensions; [
         adblock
@@ -112,19 +94,22 @@
   };
 
   #firefox
-  programs.firefox = {
+  programs.firefox.enable = true;
+
+  #git
+  programs.git = {
     enable = true;
+    extraConfig = {
+      url."ssh://git@github.com/".insteadOf = "https://github.com/";
+    };
   };
 
   #===FISH===
-
   programs.fish = {
     enable = true;
-
     shellInit = ''
       set fish_greeting
         echo "hey zelda uwu" | ${pkgs.lolcat}/bin/lolcat
-
     '';
     shellAliases = {
       ll = "eza -l --icons --git --group-directories-first";
@@ -139,44 +124,28 @@
       lsg = "eza -la --icons --git --group-directories-first"; # the max eye candy one
       nhup = "nh os switch --update";
     };
-
     functions = {
-      nixcommit = {
-        body = ''
-          cd /etc/nixos
-          git add .
-          git commit -m "$argv"
-          git push
-        '';
-      };
-
-      nvim = {
-        body = ''
-          set old_dir (pwd)
-          cd /etc/nixos
-          command nvim $argv
-          z $old_dir
-            
-                 
-        '';
-      };
-
-      him = {
-        body = ''
-          nvim /etc/nixos/home.nix
-
-        '';
-      };
-      fim = {
-        body = ''
-          nvim /etc/nixos/flake.nix
-        '';
-      };
-      cim = {
-        body = ''
-          nvim /etc/nixos/configuration.nix        
-        '';
-      };
+      nixcommit = ''
+        cd /etc/nixos
+        git add .
+        git commit -m "$argv"
+        git push
+      '';
+      nvim = ''
+        set old_dir (pwd)
+        cd /etc/nixos
+        command nvim $argv
+        z $old_dir
+      '';
+      him = ''
+        nvim /etc/nixos/home.nix
+      '';
+      fim = ''
+        nvim /etc/nixos/flake.nix
+      '';
+      cim = ''
+        nvim /etc/nixos/configuration.nix
+      '';
     };
   };
 }

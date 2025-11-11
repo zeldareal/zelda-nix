@@ -1,22 +1,28 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
-# apologies in advance.
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.nixvim.nixosModules.nixvim
-      ./modules/nixvim/default.nix
-    ];
+  # apologies in advance.
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.nixvim.nixosModules.nixvim
+    ./modules/nixvim/default.nix
+  ];
 
-    nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
-    fonts.packages = with pkgs; [
+  fonts.packages = with pkgs; [
     nerd-fonts.fira-code
   ];
   #hardware shit
-    hardware.bluetooth.enable = true;
-    services.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
+  services.pulseaudio.enable = false;
 
   services.pipewire = {
     enable = true;
@@ -25,21 +31,21 @@
     alsa.enable = true;
     jack.enable = false;
   };
-xdg.portal = {
-  enable = true;
-  extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-  config.common.default = "kde";
-};
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+    config.common.default = "kde";
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "kernel-linux-mckenzie"; 
- environment.etc."hosts".text = lib.mkForce ''
-  127.0.0.1 localhost
-  127.0.1.1 kernel-linux-mckenzie
-  ::1 localhost ip6-localhost ip6-loopback
-'';
+  networking.hostName = "kernel-linux-mckenzie";
+  environment.etc."hosts".text = lib.mkForce ''
+    127.0.0.1 localhost
+    127.0.1.1 kernel-linux-mckenzie
+    ::1 localhost ip6-localhost ip6-loopback
+  '';
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -86,7 +92,7 @@ xdg.portal = {
 
   security.rtkit.enable = true;
 
-environment.variables.NH_FLAKE = "/etc/nixos";
+  environment.variables.NH_FLAKE = "/etc/nixos";
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -96,71 +102,83 @@ environment.variables.NH_FLAKE = "/etc/nixos";
     isNormalUser = true;
     description = "zeldareal";
     uid = 1000;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
-  
-    environment.systemPackages = with pkgs; [
-  bluez-tools
-  flatpak
-  wget
-  git
-  wine
-  kdePackages.discover
-  nitrogen
-  picom
-  rofi
-  steam
-  alacritty
-  vscodium
-  vcpkg
-  cmake
-  kdePackages.kdeconnect-kde
-  xwinwrap
-  unrar
-  libreoffice-fresh
-  nh
-  lazygit
-  sl
-  ghostty
-  ollama
+  environment.systemPackages = with pkgs; [
+    bluez-tools
+    flatpak
+    wget
+    git
+    wine
+    kdePackages.discover
+    nitrogen
+    picom
+    rofi
+    steam
+    alacritty
+    vscodium
+    vcpkg
+    cmake
+    kdePackages.kdeconnect-kde
+    xwinwrap
+    unrar
+    libreoffice-fresh
+    nh
+    lazygit
+    sl
+    ghostty
   ];
-#hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
- 
+
+  #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
 
   #flatpak because uhh uhmmm errr
   services.flatpak.enable = true;
 
-  
-
-# steam because it cant be in hm
-programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true; #steam link
-  dedicatedServer.openFirewall = true; #server
-};
-
-
-programs.fish.enable = true;
-users.users.zelda.shell = pkgs.fish;
-users.users.root.shell = pkgs.fish;
-
-   users.defaultUserShell = pkgs.fish;
-   
-networking.firewall = { 
+  # steam because it cant be in hm
+  programs.steam = {
     enable = true;
-    allowedTCPPortRanges = [ 
-      { from = 1714; to = 1764; } # KDE Connect
-    ];  
-    allowedUDPPortRanges = [ 
-      { from = 1714; to = 1764; } # KDE Connect
-    ];  
-  };  
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    remotePlay.openFirewall = true; # steam link
+    dedicatedServer.openFirewall = true; # server
+  };
+
+  #hyprland
+  programs.hyprland = {
+    enable = true;
+  };
+
+  programs.fish.enable = true;
+  users.users.zelda.shell = pkgs.fish;
+  users.users.root.shell = pkgs.fish;
+
+  users.defaultUserShell = pkgs.fish;
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect
+    ];
+  };
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -173,7 +191,11 @@ networking.firewall = {
   boot.plymouth.enable = true;
   boot.initrd.systemd.enable = true;
   boot.plymouth.theme = "bgrt";
-  boot.kernelParams = ["quiet" "splash" "i915.fastboot=1"];
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+    "i915.fastboot=1"
+  ];
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
