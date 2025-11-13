@@ -135,23 +135,22 @@
     lazygit
     sl
     ghostty
-  ];
 
-  #hm shit so hm works because hm is stupid and i hate it FUCK YOU FUCK YOU FUCK YOU
+    kitty
+    waybar
+    yazi
+    mpv
+
+  ];
 
   #flatpak because uhh uhmmm errr
   services.flatpak.enable = true;
-
+  programs.niri.enable = true;
   # steam because it cant be in hm
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # steam link
     dedicatedServer.openFirewall = true; # server
-  };
-
-  #hyprland
-  programs.hyprland = {
-    enable = true;
   };
 
   programs.fish.enable = true;
@@ -186,6 +185,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  programs.sway.enable = true;
 
   # List services that you want to enable:
   boot.plymouth.enable = true;

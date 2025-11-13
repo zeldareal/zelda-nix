@@ -23,8 +23,8 @@
     };
 
     # other shit
-    hyprland.url = "github:hyprwm/Hyprland";
 
+    hyprland.url = "github:hyprwm/Hyprland";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     ghostty.url = "github:ghostty-org/ghostty";
     nixvim = {

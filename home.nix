@@ -11,6 +11,7 @@
     nixvim.homeModules.default
     ./modules/nixvim
     spicetify-nix.homeManagerModules.default
+    ./sway.nix
   ];
   #im sorry for writing this
   home.username = "zelda";
@@ -23,12 +24,9 @@
     chromium
     librewolf
     google-chrome
-
     fish
     starship
-    # terminal
     wezterm
-
     fastfetch
     hyfetch
     lolcat
@@ -42,26 +40,28 @@
     fzf
     ripgrep
     zoxide
-
     btop
-
     mpv
-
     fuzzel
     notion-app-enhanced
     legcord
     prismlauncher
-
     gcc
     gnumake
-
     appimage-run
     pipewire
     nushell
+    gum
+
+    cava
+    swaybg
   ];
 
   # ==PROGRAM CONFIGS== #
-  programs.wezterm.enable = true;
+  programs.wezterm = {
+    enable = true;
+  };
+
   #starship
   programs.starship = {
     enable = true;
@@ -125,17 +125,12 @@
       nhup = "nh os switch --update";
     };
     functions = {
+
       nixcommit = ''
         cd /etc/nixos
         git add .
         git commit -m "$argv"
         git push
-      '';
-      nvim = ''
-        set old_dir (pwd)
-        cd /etc/nixos
-        command nvim $argv
-        z $old_dir
       '';
       him = ''
         nvim /etc/nixos/home.nix
@@ -145,6 +140,9 @@
       '';
       cim = ''
         nvim /etc/nixos/configuration.nix
+      '';
+      nvim = ''
+        sudo -E nvim $argv
       '';
     };
   };
