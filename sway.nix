@@ -44,8 +44,8 @@
         };
 
       gaps = {
-        inner = 0;
-        outer = 0;
+        inner = 10;
+        outer = 10;
       };
     };
   };

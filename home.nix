@@ -50,16 +50,20 @@
     gnumake
     appimage-run
     pipewire
-    nushell
-    gum
-
-    cava
     swaybg
+    fortune
   ];
 
   # ==PROGRAM CONFIGS== #
   programs.wezterm = {
     enable = true;
+    extraConfig = ''
+           return {
+           color_scheme = 'Tokyo Night Storm',
+      window_close_confirmation = 'NeverPrompt',
+
+      }
+    '';
   };
 
   #starship
@@ -79,6 +83,22 @@
         adblock
         shuffle
       ];
+  };
+
+  # ===ZELLIJ=== #
+  programs.zellij = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      theme = "tokyo-night-storm";
+      default_shell = "fish";
+      show_startup_tips = false;
+
+    };
+  };
+
+  programs.floorp = {
+    enable = true;
   };
 
   #fzf
@@ -107,9 +127,9 @@
   #===FISH===
   programs.fish = {
     enable = true;
-    shellInit = ''
+    interactiveShellInit = ''
       set fish_greeting
-        echo "hey zelda uwu" | ${pkgs.lolcat}/bin/lolcat
+      fortune -s | lolcat 
     '';
     shellAliases = {
       ll = "eza -l --icons --git --group-directories-first";
@@ -126,22 +146,17 @@
     };
     functions = {
 
-      nixcommit = ''
-        cd /etc/nixos
-        git add .
-        git commit -m "$argv"
-        git push
-      '';
       him = ''
-        nvim /etc/nixos/home.nix
+        nvims /etc/nixos/home.nix
       '';
       fim = ''
-        nvim /etc/nixos/flake.nix
+        nvims /etc/nixos/flake.nix
       '';
       cim = ''
-        nvim /etc/nixos/configuration.nix
+        nvims /etc/nixos/configuration.nix
       '';
-      nvim = ''
+      nvims = ''
+        cd /etc/nixos/
         sudo -E nvim $argv
       '';
     };
