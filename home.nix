@@ -65,11 +65,11 @@
   };
 
   #starship
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
-  };
+  # programs.starship = {
+  # enable = true;
+  # enableFishIntegration = true;
+  # settings = builtins.fromTOML (builtins.readFile ./dotfiles/starship.toml);
+  # };
 
   # ==SPICETIFY== #
   programs.spicetify = {
@@ -125,6 +125,12 @@
   #===FISH===
   programs.fish = {
     enable = true;
+    plugins = [
+      {
+        name = "tide";
+        src = pkgs.fishPlugins.tide.src;
+      }
+    ];
 
     interactiveShellInit = ''
        set fish_greeting
