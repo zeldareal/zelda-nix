@@ -12,11 +12,8 @@
   };
 
   inputs = {
-    # nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
-    #hm
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,6 +36,7 @@
       nixpkgs,
       home-manager,
       hyprland,
+
       ...
     }:
     let

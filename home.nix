@@ -11,7 +11,7 @@
     nixvim.homeModules.default
     ./modules/nixvim
     spicetify-nix.homeManagerModules.default
-    ./sway.nix
+
   ];
   #im sorry for writing this
   home.username = "zelda";
@@ -30,8 +30,6 @@
     fastfetch
     hyfetch
     lolcat
-    onefetch
-    pokemon-colorscripts
     sl
     onefetch
     bat
@@ -50,8 +48,8 @@
     gnumake
     appimage-run
     pipewire
-    swaybg
     fortune
+
   ];
 
   # ==PROGRAM CONFIGS== #
@@ -127,9 +125,10 @@
   #===FISH===
   programs.fish = {
     enable = true;
+
     interactiveShellInit = ''
-      set fish_greeting
-      fortune -s | lolcat 
+       set fish_greeting
+      fortune -s | lolcat
     '';
     shellAliases = {
       ll = "eza -l --icons --git --group-directories-first";
@@ -147,18 +146,19 @@
     functions = {
 
       him = ''
-        nvims /etc/nixos/home.nix
+        nvim /etc/nixos/home.nix
       '';
       fim = ''
-        nvims /etc/nixos/flake.nix
+        nvim /etc/nixos/flake.nix
       '';
       cim = ''
-        nvims /etc/nixos/configuration.nix
+        nvim /etc/nixos/configuration.nix
       '';
       nvims = ''
         cd /etc/nixos/
         sudo -E nvim $argv
       '';
     };
+
   };
 }

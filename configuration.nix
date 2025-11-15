@@ -15,6 +15,8 @@
     ./modules/nixvim/default.nix
   ];
 
+  nix.package = pkgs.lix;
+
   nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [
@@ -124,8 +126,7 @@
     rofi
     steam
     alacritty
-    vscodium
-    vcpkg
+
     cmake
     kdePackages.kdeconnect-kde
     xwinwrap
