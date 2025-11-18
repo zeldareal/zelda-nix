@@ -1,1 +1,1 @@
-My personal /etc/nixos folder. That's really 'bout it
+### MOVED TO GITLAB : https://gitlab.com/zeldareal/zelda-nix
